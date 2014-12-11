@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211204655) do
+ActiveRecord::Schema.define(version: 20141211220730) do
+
+  create_table "recordings", force: true do |t|
+    t.string   "name",                   null: false
+    t.integer  "user_id",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "audioclip_file_name"
+    t.string   "audioclip_content_type"
+    t.integer  "audioclip_file_size"
+    t.datetime "audioclip_updated_at"
+  end
+
+  add_index "recordings", ["user_id"], name: "index_recordings_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -1,0 +1,16 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @recording.name
+%p
+  %b User:
+  = @recording.user
+
+%p
+  %b Audio:
+  = audio_tag(@recording.audioclip.url, controls: true)
+
+= link_to 'Edit', edit_recording_path(@recording)
+\|
+= link_to 'Back', recordings_path

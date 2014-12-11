@@ -1,0 +1,10 @@
+= simple_form_for @recording, html: {multipart: true} do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.association :user
+    = f.file_field :audioclip
+
+  .form-actions
+    = f.button :submit
