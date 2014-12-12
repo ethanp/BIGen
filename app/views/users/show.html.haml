@@ -6,5 +6,5 @@
   %ul
     %b Categories I Follow
     - @user.categories.each do |category|
-      %li=category.name
+      %li= link_to category.name, category
 %hr

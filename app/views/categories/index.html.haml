@@ -1,11 +1,12 @@
-%h1 Listing categories
+%h1 Categories
 
 %table
   %thead
     %tr
       %th Name
       - if user_signed_in?
-        %th
+        %th Following
+        %th Delete
 
   %tbody
     - @categories.each do |category|
@@ -14,13 +15,11 @@
           %b= link_to category.name, category
         - if user_signed_in?
           - if current_user.categories.include? category
-            -# TODO link-to un-follow
-            %td Un-Follow (TODO)
+            %td= link_to 'Un-Follow', follow_path(category), method: :put
           - else
-            -# TODO link-to follow
-            %td Follow (TODO)
-          %td= link_to 'Delete', category, method: :delete, data: { confirm: 'Are you sure?' }
+            %td= link_to 'Follow', follow_path(category), method: :put
+          %td= link_to 'Delete Category', category, method: :delete, data: { confirm: 'Are you sure?' }
 
-%br
+%hr
 
 = link_to 'New Category', new_category_path
