@@ -12,11 +12,10 @@
   %tbody
     - @recordings.each do |recording|
       %tr
-        %td= recording.name
-        %td= recording.user.name
+        %td= link_to recording.name, recording
+        %td= link_to recording.user.name, recording.user
         %td= audio_tag recording.audioclip.url, controls: true
-        %td= link_to 'Details', recording
-        %td= link_to 'Delete', recording, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Delete', recording, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

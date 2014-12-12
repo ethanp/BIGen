@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   private
 
   def secure_params
-    params.require(:user).permit(:role, :categories)
+    params.require(:user).permit(:role, {category_ids: []})
   end
 
 end

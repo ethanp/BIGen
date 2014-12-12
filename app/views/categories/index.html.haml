@@ -4,17 +4,22 @@
   %thead
     %tr
       %th Name
-      %th
-      %th
-      %th
-      
+      - if user_signed_in?
+        %th
+
   %tbody
     - @categories.each do |category|
       %tr
-        %td= category.name
-        %td= link_to 'Show', category
-        %td= link_to 'Edit', edit_category_path(category)
-        %td= link_to 'Destroy', category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td
+          %b= link_to category.name, category
+        - if user_signed_in?
+          - if current_user.categories.include? category
+            -# TODO link-to un-follow
+            %td Un-Follow (TODO)
+          - else
+            -# TODO link-to follow
+            %td Follow (TODO)
+          %td= link_to 'Delete', category, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
