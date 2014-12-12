@@ -1,0 +1,25 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @category.name
+
+%h3 Tagged Recordings
+%table
+  %thead
+    %tr
+      %th Name
+      %th Recording
+      %th User
+
+  %tbody
+    - @category.recordings.each do |recording|
+      %tr
+        %td= recording.name
+        %td= audio_tag recording.audioclip.url, controls: :true
+        %td= link_to recording.user.name, recording.user
+
+
+= link_to 'Edit', edit_category_path(@category)
+\|
+= link_to 'Back', categories_path

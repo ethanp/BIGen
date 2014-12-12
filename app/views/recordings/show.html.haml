@@ -1,12 +1,18 @@
 %p#notice= notice
 
 %p
-  %b Name:
+  %b Title:
   = @recording.name
 %p
   %b User:
-  = @recording.user
+  = @recording.user.name
 
+- if @recording.categories.count > 0
+  %ul
+    %b Categories
+    - @recording.categories.each do |category|
+      %li=category.name
+%hr
 %p
   %b Audio:
   = audio_tag(@recording.audioclip.url, controls: true)

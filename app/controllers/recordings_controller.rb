@@ -42,6 +42,6 @@ class RecordingsController < ApplicationController
     end
 
     def recording_params
-      params.require(:recording).permit(:name, :user_id, :audioclip)
+      params.require(:recording).permit(:name, :user_id, :audioclip, :categories)
     end
 end

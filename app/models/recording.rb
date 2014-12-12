@@ -1,5 +1,6 @@
 class Recording < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
+  has_and_belongs_to_many :categories, -> { order('name ASC') }
   validates_presence_of :name
   has_attached_file :audioclip
   validates_attachment_presence :audioclip

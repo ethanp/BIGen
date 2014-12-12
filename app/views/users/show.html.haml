@@ -1,0 +1,10 @@
+%h3 User
+%p Name: #{@user.name if @user.name}
+%p Email: #{@user.email if @user.email}
+
+- if @user.categories.count > 0
+  %ul
+    %b Categories I Follow
+    - @user.categories.each do |category|
+      %li=category.name
+%hr

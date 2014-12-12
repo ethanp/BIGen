@@ -1,9 +1,9 @@
 !!!
 %html
   %head
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= content_for?(:title) ? yield(:title) : 'Bi Gen'
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Bi Gen'}"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    %title= if content_for?(:title) then yield(:title) else 'Bi Gen' end
+    %meta{name: "description", content: "#{content_for?(:description) ? yield(:description) : 'Bi Gen'}"}
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     -# Modernizr is required for Zurb Foundation
     = javascript_include_tag 'vendor/modernizr'
@@ -12,6 +12,6 @@
   %body
     %header
       = render 'layouts/navigation'
-    %main{:role => "main"}
+    %main{role: "main"}
       = render 'layouts/messages'
       = yield
