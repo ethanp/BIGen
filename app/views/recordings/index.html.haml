@@ -8,14 +8,49 @@
       %th User
       %th Delete
 
-  %tbody
+  %tbody#playlist
     - @recordings.each do |recording|
       %tr
         %td= link_to recording.name, recording
-        %td= audio_tag recording.audioclip.url, controls: true
+        %td= link_to 'Play', recording.audioclip.url, class: :audiofiles
         %td= link_to recording.user.name, recording.user
         %td= link_to 'Delete Recording', recording, method: :delete, data: { confirm: 'Are you sure?' }
 
-%br
+%h2 Player
+
+%audio#audio{preload: :auto, tabindex: 0, controls: :controls}
+  %source#source{type: 'audio/mp3'}
+
+:coffee
+  # based on blog.lastrose.com/html5-audio-video-playlist
+  run = (link, player) ->
+    player.src = link.attr("href")
+    par = link.parent()
+    par.addClass("active").siblings().removeClass "active"
+    $player.load()
+    $player.play()
+    return
+
+  current = 0
+  $player = $("#audio")[0]
+  $playlist = $("#playlist")
+  $tracks = $playlist.find(".audiofiles")
+
+  $playlist.find(".audiofiles").click (e) ->
+    e.preventDefault()
+    link = $(this)
+    current = link.parent().index()
+    run link, $player
+    return
+
+  $player.addEventListener "ended", (e) ->
+    current++
+    current = 0 if current is $tracks.length
+    link = $playlist.find(".audiofiles")[current]
+    run $(link), $player
+    return
+
+
+%hr
 
 = link_to 'New Recording', new_recording_path
