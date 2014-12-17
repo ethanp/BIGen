@@ -4,7 +4,7 @@
   %thead
     %tr
       %th Title
-      %th Playback
+      %th Play Now
       %th User
       %th Delete
 
@@ -16,7 +16,10 @@
         %td= link_to recording.user.name, recording.user
         %td= link_to 'Delete Recording', recording, method: :delete, data: { confirm: 'Are you sure?' }
 
-%h2 Player
+
+-# TODO from this down should be some sort of "renderable layout thingy"
+
+%h2 The Big Playback
 
 %audio#audio{preload: :auto, tabindex: 0, controls: :controls}
   %source#source{type: 'audio/mp3'}
@@ -25,28 +28,27 @@
   # based on blog.lastrose.com/html5-audio-video-playlist
   run = (link, player) ->
     player.src = link.attr("href")
-    par = link.parent()
-    par.addClass("active").siblings().removeClass "active"
-    $player.load()
     $player.play()
     return
 
-  current = 0
+  currentIdx = 0
   $player = $("#audio")[0]
   $playlist = $("#playlist")
   $tracks = $playlist.find(".audiofiles")
 
-  $playlist.find(".audiofiles").click (e) ->
+  # play on click
+  $tracks.click (e) ->
     e.preventDefault()
     link = $(this)
-    current = link.parent().index()
+    currentIdx = link.parent().index() # not sure how this works, but it does...
     run link, $player
     return
 
+  # play next on end-of-track
   $player.addEventListener "ended", (e) ->
-    current++
-    current = 0 if current is $tracks.length
-    link = $playlist.find(".audiofiles")[current]
+    currentIdx++
+    currentIdx = 0 if current is $tracks.length
+    link = $playlist.find(".audiofiles")[currentIdx]
     run $(link), $player
     return
 

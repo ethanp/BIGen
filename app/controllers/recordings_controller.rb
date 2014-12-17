@@ -36,6 +36,13 @@ class RecordingsController < ApplicationController
     respond_with(@recording)
   end
 
+  def record
+  end
+
+  def post_record
+    # TODO
+  end
+
   private
     def set_recording
       @recording = Recording.find(params[:id])
